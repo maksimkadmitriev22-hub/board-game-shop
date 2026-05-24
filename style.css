@@ -1,0 +1,455 @@
+/* ===== СБРОС И БАЗА ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0e1a14;
+    color: #e6e3cf;
+    line-height: 1.6;
+    background-image: radial-gradient(circle at 30% 40%, #1a3a25 0%, #0e1a14 60%);
+    background-attachment: fixed;
+}
+
+/* ===== НАВИГАЦИЯ (ЛЕСНАЯ АРКА) ===== */
+.navbar {
+    background: rgba(14, 26, 20, 0.8);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(163, 208, 99, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 12px 0;
+    box-shadow: 0 2px 20px rgba(163, 208, 99, 0.2);
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    font-family: 'El Messiri', 'Georgia', serif;
+    font-size: 2rem;
+    color: #e8c86a;
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(232, 200, 106, 0.6);
+    transition: text-shadow 0.4s;
+    position: relative;
+    transition: text-shadow 1s, color 0.5s;
+}
+
+.navbar-logo::before,
+.navbar-logo::after {
+    content: '✦';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a3d063;
+    font-size: 0.8rem;
+    opacity: 0.7;
+    animation: runeFlicker 2s infinite alternate;
+}
+
+.navbar-logo::before { left: -25px; }
+.navbar-logo::after  { right: -25px; }
+
+.navbar-logo:hover {
+    text-shadow: 
+        0 0 10px rgba(232, 200, 106, 0.9),
+        0 0 30px rgba(163, 208, 99, 0.6),
+        0 0 50px rgba(163, 208, 99, 0.4);
+    color: #fff;
+    transition: text-shadow 0.5s, color 0.5s;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.navbar-link {
+    color: #e6e3cf;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.navbar-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: radial-gradient(circle, #a3d063, transparent);
+    opacity: 0;
+    transition: opacity 0.4s, bottom 0.3s;
+    filter: blur(2px);
+    box-shadow: 0 0 15px rgba(163, 208, 99, 0.9);
+}
+
+.navbar-link:hover::after {
+    opacity: 1;
+    bottom: -4px;
+}
+
+/* Бургер-меню (такой же, но в зелёных тонах) */
+.burger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+}
+
+.burger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #a3d063;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+@media (max-width: 768px) {
+    .burger { display: flex; }
+
+    .navbar-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 100vh;
+        background: rgba(14, 26, 20, 0.95);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        padding: 80px 30px 30px;
+        gap: 25px;
+        transition: right 0.4s ease;
+        z-index: 100;
+    }
+
+    .navbar-menu.active { right: 0; }
+}
+
+/* ===== HERO (ОПУШКА ЛЕСА) ===== */
+.hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(ellipse at 20% 20%, #1a3a25 0%, #0e1a14 70%);
+    padding: 140px 20px 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Магические искры на фоне */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, rgba(232, 200, 106, 0.8), transparent),
+        radial-gradient(2px 2px at 50% 70%, rgba(163, 208, 99, 0.9), transparent),
+        radial-gradient(3px 3px at 80% 40%, rgba(232, 200, 106, 0.7), transparent),
+        radial-gradient(1px 1px at 40% 80%, rgba(163, 208, 99, 1), transparent),
+        radial-gradient(2px 2px at 10% 60%, rgba(232, 200, 106, 0.8), transparent),
+        radial-gradient(1px 1px at 70% 20%, rgba(255, 255, 255, 0.6), transparent);
+    background-size: 200% 200%;
+    animation: sparkles 4s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.hero-content {
+    max-width: 800px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-family: 'El Messiri', 'Georgia', serif;
+    font-size: 4rem;
+    color: #e8c86a;
+    text-shadow: 0 0 30px rgba(232, 200, 106, 0.9), 0 0 60px rgba(163, 208, 99, 0.5);
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    color: #e6e3cf;
+    font-style: italic;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(163, 208, 99, 0.5);
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 16px 48px;
+    background: linear-gradient(135deg, #a3d063, #6b8c3d);
+    color: #0e1a14;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    box-shadow: 0 0 25px rgba(163, 208, 99, 0.6);
+    transition: transform 0.3s, box-shadow 0.4s;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.hero-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 50px rgba(163, 208, 99, 1);
+}
+
+.hero-btn:hover::before {
+    opacity: 1;
+}
+
+/* ===== КАТАЛОГ ===== */
+.catalog {
+    padding: 80px 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-family: 'El Messiri', 'Georgia', serif;
+    font-size: 2.8rem;
+    color: #e8c86a;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    text-shadow: 0 0 20px rgba(232, 200, 106, 0.5);
+}
+
+.section-title::before,
+.section-title::after {
+    content: 'ᛟ';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a3d063;
+    font-size: 1.5rem;
+    animation: runeFlicker 2s infinite alternate;
+}
+
+.section-title::before { left: -40px; }
+.section-title::after  { right: -40px; }
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 35px;
+}
+
+/* ===== КАРТОЧКА ТОВАРА (МАГИЧЕСКИЙ ФОЛИАНТ) ===== */
+.product-card {
+    background: rgba(30, 47, 38, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(163, 208, 99, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    animation: float 4s ease-in-out infinite;
+}
+
+.product-card:nth-child(even) {
+    animation-delay: -2s;
+}
+
+.product-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(163, 208, 99, 0.6);
+    border-color: #a3d063;
+}
+
+.product-card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px solid rgba(163, 208, 99, 0.5);
+}
+
+.product-card-body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card-title {
+    font-family: 'El Messiri', 'Georgia', serif;
+    font-size: 1.5rem;
+    color: #e8c86a;
+    margin-bottom: 10px;
+}
+
+.product-card-desc {
+    font-size: 0.95rem;
+    color: #b7c0a8;
+    flex: 1;
+    margin-bottom: 15px;
+}
+
+.product-card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #8a9b7a;
+    margin-bottom: 15px;
+}
+
+.product-card-price {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #a3d063;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(163, 208, 99, 0.5);
+}
+
+.product-card-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #e8c86a, #b8933a);
+    color: #0e1a14;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    transition: background 0.3s, box-shadow 0.4s, transform 0.2s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(232, 200, 106, 0.4);
+}
+
+.product-card-btn:hover {
+    background: linear-gradient(135deg, #a3d063, #6b8c3d);
+    box-shadow: 0 0 30px rgba(163, 208, 99, 0.8);
+    transform: scale(1.05);
+}
+
+/* ===== ПОДВАЛ (РУНЫ И КОРНИ) ===== */
+.footer {
+    background: #0a1210;
+    padding: 40px 0;
+    border-top: 2px solid rgba(163, 208, 99, 0.4);
+    text-align: center;
+    position: relative;
+}
+
+.footer::before {
+    content: 'ᚠ ᚢ ᚦ ᚨ ᚱ';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(163, 208, 99, 0.3);
+    font-size: 1.2rem;
+    letter-spacing: 10px;
+    animation: runeFlicker 3s infinite alternate;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 20px 0;
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.footer-link {
+    color: #a3d063;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.footer-link:hover {
+    color: #e8c86a;
+    text-shadow: 0 0 10px rgba(232, 200, 106, 0.7);
+}
+
+.footer-copy {
+    color: #5a6e5a;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* ===== АНИМАЦИИ ===== */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes runeFlicker {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+@keyframes sparkles {
+    0% { background-position: 0% 0%; opacity: 0.8; }
+    100% { background-position: 100% 100%; opacity: 1; }
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 600px) {
+    .hero-title { font-size: 2.5rem; }
+    .hero-subtitle { font-size: 1rem; }
+    .section-title { font-size: 2rem; }
+    .catalog-grid { grid-template-columns: 1fr; }
+}
