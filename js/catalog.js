@@ -100,3 +100,31 @@ const products = [
     description: 'Знаменитая карточная игра. Сбрасывайте карты, подходящие по цвету или значению, и используйте специальные карты для помех.'
   }
 ];
+
+const catalogGrid = document.getElementById(`catalog-grid`);
+
+function renderCatalog() {
+    if (!catalogGrid) return;
+    catalogGrid.innerHTML = ``;
+
+    products.forEach(product => {
+    const cardHTML = `
+        <article class="product-card">
+            <img src="${product.image}" alt="${product.name}" class="product-card-img">
+            <div class="product-card-body">
+                <h3 class="product-card-title">${product.name}</h3>
+                <p class="product-card-desc">${product.description}</p>
+                <div class="product-card-meta">
+                    <span>👥 ${product.players}</span>
+                    <span>👶 ${product.age}</span>
+                </div>
+                <div class="product-card-price">${product.price.toLocaleString('ru-RU')} ₽</div>
+                <button class="product-card-btn" data-id="${product.id}">В корзину</button>
+            </div>
+        </article>
+    `;
+    catalogGrid.insertAdjacentHTML('beforeend', cardHTML);
+});
+}
+
+renderCatalog();
