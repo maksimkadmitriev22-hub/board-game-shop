@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fantasy World</title>
     <link rel="stylesheet" href="style.css">
-    <script src="catalog.js"></script>
-    <script src="main.js"></script>
 </head>
 <body>
 <nav class="navbar">
@@ -39,7 +37,51 @@
         </div>
 </section>
 
-    <script src="js/common.js"></script>
-<script src="js/catalog.js"></script>      
+<!-- ====== МОДАЛЬНОЕ ОКНО ТОВАРА ====== -->
+<!-- Оверлей (фон) — затемняет страницу и центрирует окно -->
+<div class="modal-overlay" id="product-modal">
+    <!-- Само окно с содержимым -->
+    <div class="modal-content">
+        <!-- Кнопка закрытия (крестик) -->
+        <button class="modal-close" id="modal-close">&times;</button>
+
+        <!-- Галерея (левая колонка) -->
+        <div class="modal-gallery">
+            <!-- Большое изображение -->
+            <img src="" alt="" id="modal-main-img" class="modal-main-img">
+            <!-- Контейнер для миниатюр (будет заполнен через JS) -->
+            <div class="modal-thumbnails" id="modal-thumbnails"></div>
+        </div>
+
+        <!-- Информация о товаре (правая колонка) -->
+        <div class="modal-info">
+            <!-- Название игры -->
+            <h2 class="modal-title" id="modal-title"></h2>
+
+            <!-- Мета-данные (игроки, возраст) -->
+            <div class="modal-meta">
+                <span id="modal-players"></span>
+                <span id="modal-age"></span>
+            </div>
+
+            <!-- Полное описание -->
+            <p class="modal-description" id="modal-description"></p>
+
+            <!-- Цена -->
+            <div class="modal-price" id="modal-price"></div>
+
+            <!-- Кнопка "В корзину" -->
+            <button class="product-card-btn modal-add-btn" id="modal-add-btn">В корзину</button>
+
+            <!-- Ссылки на обзор и правила -->
+            <div class="modal-links">
+                <a href="#" target="_blank" id="modal-review" class="modal-link">🎬 Обзор игры</a>
+                <a href="#" target="_blank" id="modal-rules" class="modal-link">📖 Как играть</a>
+            </div>
+        </div>
+    </div>
+</div>
+ <script src="js/catalog.js"></script>      
+ <!-- <script src="js/common.js"></script> -->
 </body>
 </html>
